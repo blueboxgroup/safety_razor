@@ -8,17 +8,26 @@ Gem::Specification.new do |spec|
   spec.version       = SafetyRazor::VERSION
   spec.authors       = ["Fletcher Nichol"]
   spec.email         = ["fnichol@nichol.ca"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Safety Razor - A Ruby client for the Razor API.}
+  spec.summary       = spec.description
+  spec.homepage      = "https://github.com/blueboxgroup/safety_razor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables   = []
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
   spec.add_development_dependency "minitest"
+  spec.add_development_dependency 'mocha'
+  spec.add_development_dependency 'guard-minitest'
+
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'cane'
+  spec.add_development_dependency 'guard-cane'
+  spec.add_development_dependency 'tailor'
+  spec.add_development_dependency 'countloc'
 end

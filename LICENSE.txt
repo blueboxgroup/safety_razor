@@ -1,4 +1,4 @@
-Copyright (c) 2013 Fletcher Nichol
+Copyright (c) 2013 Blue Box All Rights Reserved
 
 MIT License
 
