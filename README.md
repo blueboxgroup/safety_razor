@@ -1,6 +1,4 @@
-# <a name="title"></a> SafetyRazor
-
-A Ruby client for the Razor API.
+# <a name="title"></a> Safety Razor - A Ruby client for the Razor API
 
 ## <a name="installation"></a> Installation
 
