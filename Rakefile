@@ -3,9 +3,15 @@ require "rake/testtask"
 require 'cane/rake_task'
 require 'tailor/rake_task'
 
-Rake::TestTask.new(:test) do |t|
+Rake::TestTask.new(:unit) do |t|
   t.libs.push "lib"
-  t.test_files = FileList['spec/**/*_spec.rb']
+  t.test_files = FileList['spec/unit/**/*_spec.rb']
+  t.verbose = true
+end
+
+Rake::TestTask.new(:acceptance) do |t|
+  t.libs.push "lib"
+  t.test_files = FileList['spec/acceptance/**/*_spec.rb']
   t.verbose = true
 end
 
@@ -24,4 +30,10 @@ task :stats do
   sh "countloc -r spec"
 end
 
-task :default => [:test, :cane, :tailor, :stats]
+desc "Run all test suites"
+task :test => [:unit, :acceptance]
+
+desc "Run all quality tasks"
+task :quality => [:cane, :tailor, :stats]
+
+task :default => [:unit, :quality]
