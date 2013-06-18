@@ -136,15 +136,8 @@ client.model.update({
   label: "New Test Model Label"
 })
 
-model = client.model.find("uuid1-xxxx")
-model.image_uuid = "uuid2-yyyy"
-client.model.update(model)
-
 # DELETE /model/{UUID}
 client.model.destroy("uuid1-xxxx")
-
-model = client.model.get("uuid1-xxxx")
-client.model.destroy(model)
 ```
 
 ### <a name="usage-node"></a> Node

@@ -7,6 +7,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :forwarded_port, guest: 8026, host: 8026
 
+  config.omnibus.chef_version = :latest
+  config.berkshelf.enabled = true
+
   config.vm.provision :chef_solo do |chef|
     chef.run_list = ["recipe[razor]"]
     chef.json = {
