@@ -1,11 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-require "faraday"
-require "json"
-require "hashie"
+require 'faraday'
 
-require "safety_razor/slice/model"
-require "safety_razor/slice/tag"
+require 'safety_razor/slice/model'
+require 'safety_razor/slice/tag'
 
 module SafetyRazor
 
