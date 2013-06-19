@@ -60,8 +60,12 @@ module SafetyRazor
 
       def parse(response)
         Array(JSON.parse(response.body)["response"]).map do |obj|
-          Hashie::Mash.new(strip_ivars(obj))
+          new_mash(strip_ivars(obj))
         end
+      end
+
+      def new_mash(obj)
+        Hashie::Mash.new(obj)
       end
 
       def strip_ivars(obj)

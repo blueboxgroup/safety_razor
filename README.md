@@ -265,7 +265,7 @@ client.tag_matcher.get("uuid1-xxxx", "uuid2-yyyy")
 # PUT /tag/{T_UUID}/matcher/{UUID}?json_hash=(JSON_STR)
 client.tag_matcher.update("uuid1-xxxx", {
   uuid: "uuid2-yyyy",
-  invert: true
+  key: "mk_special_sauce"
 })
 
 # DELETE /tag/{T_UUID}/matcher/{UUID}

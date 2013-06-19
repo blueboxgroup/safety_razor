@@ -36,4 +36,13 @@ describe SafetyRazor::Client do
       client.tag
     end
   end
+
+  describe "#tag_matcher" do
+
+    it "creates a SafetyRazor::Slice::TagMatcher" do
+      SafetyRazor::Slice::TagMatcher.expects(:new).with(client)
+
+      client.tag_matcher
+    end
+  end
 end
