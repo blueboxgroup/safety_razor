@@ -237,10 +237,6 @@ client.tag.update({
   tag: "prod_tag"
 })
 
-tag = client.tag.get("uuid1-xxxx")
-tag.name = "Production Tag"
-client.tag.update(tag)
-
 # DELETE /tag/{UUID}
 client.tag.destroy("uuid1-xxxx")
 
