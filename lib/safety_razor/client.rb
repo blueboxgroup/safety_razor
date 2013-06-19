@@ -5,6 +5,7 @@ require "json"
 require "hashie"
 
 require "safety_razor/slice/model"
+require "safety_razor/slice/tag"
 
 module SafetyRazor
 
@@ -25,6 +26,10 @@ module SafetyRazor
 
     def model
       @model ||= Slice::Model.new(self)
+    end
+
+    def tag
+      @tag ||= Slice::Tag.new(self)
     end
   end
 end

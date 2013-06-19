@@ -3,7 +3,6 @@
 require File.join(File.dirname(__FILE__), %w{.. .. spec_helper})
 
 require 'safety_razor/client'
-require 'safety_razor/slice/model'
 
 describe SafetyRazor::Client do
 
@@ -26,6 +25,15 @@ describe SafetyRazor::Client do
       SafetyRazor::Slice::Model.expects(:new).with(client)
 
       client.model
+    end
+  end
+
+  describe "#tag" do
+
+    it "creates a SafetyRazor::Slice::Tag" do
+      SafetyRazor::Slice::Tag.expects(:new).with(client)
+
+      client.tag
     end
   end
 end
