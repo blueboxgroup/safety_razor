@@ -5,6 +5,7 @@ require 'faraday'
 require 'safety_razor/slice/model'
 require 'safety_razor/slice/tag'
 require 'safety_razor/slice/tag_matcher'
+require 'safety_razor/slice/policy'
 
 module SafetyRazor
 
@@ -33,6 +34,10 @@ module SafetyRazor
 
     def tag_matcher
       @tag_matcher ||= Slice::TagMatcher.new(self)
+    end
+
+    def policy
+      @policy ||= Slice::Policy.new(self)
     end
   end
 end

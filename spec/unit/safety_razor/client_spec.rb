@@ -45,4 +45,13 @@ describe SafetyRazor::Client do
       client.tag_matcher
     end
   end
+
+  describe "#policy" do
+
+    it "creates a SafetyRazor::Slice::Policy" do
+      SafetyRazor::Slice::Policy.expects(:new).with(client)
+
+      client.policy
+    end
+  end
 end
