@@ -38,6 +38,9 @@ describe "Policy Slice" do
   end
 
   it "manages a policy" do
+    client.policy.templates.
+      find { |t| t.template == "linux_deploy" }.is_template.must_equal true
+
     client.policy.all.must_equal []
 
     policy = client.policy.create({
