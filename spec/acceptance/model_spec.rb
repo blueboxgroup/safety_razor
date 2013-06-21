@@ -21,6 +21,9 @@ describe "Model Slice" do
   end
 
   it "manages a model" do
+    client.model.templates.
+      find { |t| t.name == "ubuntu_oneiric" }.template.must_equal "linux_deploy"
+
     client.model.all.must_equal []
 
     model = client.model.create({

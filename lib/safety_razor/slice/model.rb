@@ -12,6 +12,11 @@ module SafetyRazor
     #
     class Model < Base
 
+      def templates
+        response = connection.get(slice_path("templates"))
+        parse(response)
+      end
+
       private
 
       def slice_name
