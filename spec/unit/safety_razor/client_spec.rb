@@ -72,4 +72,13 @@ describe SafetyRazor::Client do
       client.node
     end
   end
+
+  describe "#active_model" do
+
+    it "creates a SafetyRazor::Slice::ActiveModel" do
+      SafetyRazor::Slice::ActiveModel.expects(:new).with(client)
+
+      client.active_model
+    end
+  end
 end

@@ -31,9 +31,6 @@ client.active_model.all
 
 # DELETE /active_model/{UUID}
 client.active_model.destroy("uuid1-xxxx")
-
-active_model = client.active_model.get("uuid1-xxxx")
-client.active_model.destroy(active_model)
 ```
 
 ### <a name="usage-bmc"></a> BMC
