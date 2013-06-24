@@ -54,4 +54,13 @@ describe SafetyRazor::Client do
       client.policy
     end
   end
+
+  describe "#broker" do
+
+    it "creates a SafetyRazor::Slice::Broker" do
+      SafetyRazor::Slice::Broker.expects(:new).with(client)
+
+      client.broker
+    end
+  end
 end

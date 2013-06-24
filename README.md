@@ -90,11 +90,6 @@ client.broker.update({
   name: "Production Chef Server"
 })
 
-
-broker = client.broker.find("uuid1-xxxx")
-broker.description = "Located in a server farm"
-client.broker.update(broker)
-
 # DELETE /broker/{UUID}
 client.broker.destroy("uuid1-xxxx")
 
