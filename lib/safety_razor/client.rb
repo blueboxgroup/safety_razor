@@ -7,6 +7,7 @@ require 'safety_razor/slice/tag'
 require 'safety_razor/slice/tag_matcher'
 require 'safety_razor/slice/policy'
 require 'safety_razor/slice/broker'
+require 'safety_razor/slice/node'
 
 module SafetyRazor
 
@@ -43,6 +44,10 @@ module SafetyRazor
 
     def broker
       @broker ||= Slice::Broker.new(self)
+    end
+
+    def node
+      @node ||= Slice::Node.new(self)
     end
   end
 end

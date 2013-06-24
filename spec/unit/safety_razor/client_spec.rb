@@ -63,4 +63,13 @@ describe SafetyRazor::Client do
       client.broker
     end
   end
+
+  describe "#node" do
+
+    it "creates a SafetyRazor::Slice::Node" do
+      SafetyRazor::Slice::Node.expects(:new).with(client)
+
+      client.node
+    end
+  end
 end

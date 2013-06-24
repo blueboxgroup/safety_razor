@@ -59,9 +59,10 @@ module SafetyRazor
       end
 
       def parse(response)
-        Array(JSON.parse(response.body)["response"]).map do |obj|
-          new_mash(strip_ivars(obj))
-        end
+        collection = JSON.parse(response.body)["response"]
+        collection = [collection] if collection.is_a?(Hash)
+
+        Array(collection).map { |obj| new_mash(strip_ivars(obj)) }
       end
 
       def new_mash(obj)
