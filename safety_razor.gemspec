@@ -26,8 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'guard-minitest'
-  spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'vcr'
 
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'cane'
