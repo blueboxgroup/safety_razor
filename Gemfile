@@ -7,7 +7,3 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
 end
-
-group :integration do
-  gem 'berkshelf'
-end
