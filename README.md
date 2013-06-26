@@ -33,26 +33,6 @@ client.active_model.all
 client.active_model.destroy("uuid1-xxxx")
 ```
 
-### <a name="usage-bmc"></a> BMC
-
-```ruby
-require 'safety_razor'
-
-client = SafetyRazor::Client.new(uri: 'http://10.0.10.1')
-
-# POST /bmc/register?json_hash=(JSON_STR)
-client.bmc.create({
-  mac_address: "00:0c:29:ec:67:fc",
-  ip_address: "10.0.11.4"
-})
-
-# GET /bmc/{UUID}
-client.bmc.get("uuid1-xxxx")
-
-# GET /bmc/{UUID}?filter_str
-client.bmc.get("uuid1-xxxx", query: "power_status")
-```
-
 ### <a name="usage-broker"></a> Broker
 
 ```ruby
