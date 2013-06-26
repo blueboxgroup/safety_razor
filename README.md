@@ -1,5 +1,14 @@
 # <a name="title"></a> Safety Razor - A Ruby client for the Razor API
 
+There are 2 overriding design decisions at play in this library:
+
+1. Implement a solution using the
+   [Faraday gem](https://github.com/lostisland/faraday) to support
+   middleware injection such as additional authentication, rety logic, etc.
+2. Provide a thin wrapper around Razor's REST API that doesn't hide data
+   internals. At the time of authoring this library Razor has not yet hit a
+   SemVer-stable release and could therefore change internals at any time.
+
 ## <a name="installation"></a> Installation
 
 Add this line to your application's Gemfile:
@@ -18,6 +27,10 @@ Or install it yourself as:
 
 ### <a name="usage-active-model"></a> Active Model
 
+* Razor
+  [active_model](https://github.com/puppetlabs/Razor/wiki/active_model)
+  documentation
+
 ```ruby
 require 'safety_razor'
 
@@ -34,6 +47,10 @@ client.active_model.destroy("uuid1-xxxx")
 ```
 
 ### <a name="usage-broker"></a> Broker
+
+* Razor
+  [broker](https://github.com/puppetlabs/Razor/wiki/broker)
+  documentation
 
 ```ruby
 require 'safety_razor'
@@ -76,6 +93,10 @@ client.broker.destroy(broker)
 
 ### <a name="usage-model"></a> Model
 
+* Razor
+  [model](https://github.com/puppetlabs/Razor/wiki/model)
+  documentation
+
 ```ruby
 require 'safety_razor'
 
@@ -114,6 +135,10 @@ client.model.destroy("uuid1-xxxx")
 
 ### <a name="usage-node"></a> Node
 
+* Razor
+  [node](https://github.com/puppetlabs/Razor/wiki/node)
+  documentation
+
 ```ruby
 require 'safety_razor'
 
@@ -148,6 +173,10 @@ client.node.all
 ```
 
 ### <a name="usage-policy"></a> Policy
+
+* Razor
+  [policy](https://github.com/puppetlabs/Razor/wiki/policy)
+  documentation
 
 ```ruby
 require 'safety_razor'
@@ -186,6 +215,10 @@ client.policy.destroy(policy)
 
 ### <a name="usage-tag"></a> Tag
 
+* Razor
+  [tag](https://github.com/puppetlabs/Razor/wiki/tag)
+  documentation
+
 ```ruby
 require 'safety_razor'
 
@@ -218,6 +251,10 @@ client.tag.destroy(tag)
 
 ### <a name="usage-tag-matcher"></a> Tag Matcher
 
+* Razor
+  [tag](https://github.com/puppetlabs/Razor/wiki/tag)
+  documentation (contains tag matcher details)
+
 ```ruby
 require 'safety_razor'
 
@@ -244,6 +281,21 @@ client.tag_matcher.update("uuid1-xxxx", {
 client.tag_matcher.destroy("uuid1-xxxx", "uuid2-yyyy")
 ```
 
+## <a name="testing"></a> Testing
+
+To run the unit tests and quality suite:
+
+    ./script/bootstrap
+    rake
+
+The acceptance suite requires a Razor service, therefore this projects ships
+with a Vagrant VM providing a Razor instance. To run the acceptance suite:
+
+    ./script/bootstrap
+    vagrant up
+    rake acceptance
+    vagrant destroy
+
 ## <a name="development"></a> Development
 
 * Source hosted at [GitHub][repo]
@@ -261,8 +313,8 @@ example:
 
 ## <a name="authors"></a> Authors
 
-Created and maintained by [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>),
-and [Blue Box Group][bluebox].
+Created by [Fletcher Nichol][fnichol] (<fnichol@nichol.ca>), and maintained
+by [Blue Box Group][bluebox].
 
 ## <a name="license"></a> License
 
