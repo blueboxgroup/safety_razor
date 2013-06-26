@@ -9,7 +9,7 @@ There are 2 overriding design decisions at play in this library:
 
 1. Implement a solution using the
    [Faraday gem](https://github.com/lostisland/faraday) to support
-   middleware injection such as additional authentication, rety logic, etc.
+   middleware injection such as additional authentication, retry logic, etc.
 2. Provide a thin wrapper around Razor's REST API that doesn't hide data
    internals. At the time of authoring this library Razor has not yet hit a
    SemVer-stable release and could therefore change internals at any time.
