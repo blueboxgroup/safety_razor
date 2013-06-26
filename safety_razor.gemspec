@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["fnichol@nichol.ca"]
   spec.description   = %q{Safety Razor - A Ruby client for the Razor API.}
   spec.summary       = spec.description
-  spec.homepage      = "https://github.com/blueboxgroup/safety_razor"
+  spec.homepage      = "http://blueboxgroup.github.io/safety_razor"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
