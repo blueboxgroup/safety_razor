@@ -1,5 +1,10 @@
 # <a name="title"></a> Safety Razor - A Ruby client for the Razor API
 
+[![Gem Version](https://badge.fury.io/rb/safety_razor.png)](http://badge.fury.io/rb/safety_razor)
+[![Build Status](https://travis-ci.org/blueboxgroup/safety_razor.png?branch=master)](https://travis-ci.org/blueboxgroup/safety_razor)
+[![Code Climate](https://codeclimate.com/github/blueboxgroup/safety_razor.png)](https://codeclimate.com/github/blueboxgroup/safety_razor)
+[![Dependency Status](https://gemnasium.com/blueboxgroup/safety_razor.png)](https://gemnasium.com/blueboxgroup/safety_razor)
+
 There are 2 overriding design decisions at play in this library:
 
 1. Implement a solution using the
