@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Safety Razor by blueboxgroup</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Safety Razor</h1>
+        <p>A Ruby client for the Razor API</p>
+
+        <p class="view"><a href="https://github.com/blueboxgroup/safety_razor">View the Project on GitHub <small>blueboxgroup/safety_razor</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/blueboxgroup/safety_razor/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/blueboxgroup/safety_razor/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/blueboxgroup/safety_razor">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="http://badge.fury.io/rb/safety_razor"><img src="https://badge.fury.io/rb/safety_razor.png" alt="Gem Version"></a>
+<a href="https://travis-ci.org/blueboxgroup/safety_razor"><img src="https://travis-ci.org/blueboxgroup/safety_razor.png?branch=master" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/blueboxgroup/safety_razor"><img src="https://codeclimate.com/github/blueboxgroup/safety_razor.png" alt="Code Climate"></a>
+<a href="https://gemnasium.com/blueboxgroup/safety_razor"><img src="https://gemnasium.com/blueboxgroup/safety_razor.png" alt="Dependency Status"></a></p>
+
+<p>There are 2 overriding design decisions at play in this library:</p>
+
+<ol>
+<li>Implement a solution using the
+<a href="https://github.com/lostisland/faraday">Faraday gem</a> to support
+middleware injection such as additional authentication, rety logic, etc.</li>
+<li>Provide a thin wrapper around Razor's REST API that doesn't hide data
+internals. At the time of authoring this library Razor has not yet hit a
+SemVer-stable release and could therefore change internals at any time.</li>
+</ol><h2>
+<a name="-installation" class="anchor" href="#-installation"><span class="octicon octicon-link"></span></a><a name="installation"></a> Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'safety_razor'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install safety_razor
+</code></pre>
+
+<h2>
+<a name="-usage" class="anchor" href="#-usage"><span class="octicon octicon-link"></span></a><a name="usage"></a> Usage</h2>
+
+<h3>
+<a name="-active-model" class="anchor" href="#-active-model"><span class="octicon octicon-link"></span></a><a name="usage-active-model"></a> Active Model</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/active_model">active_model</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># GET /active_model/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">active_model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /active_model</span>
+<span class="n">client</span><span class="o">.</span><span class="n">active_model</span><span class="o">.</span><span class="n">all</span>
+
+<span class="c1"># DELETE /active_model/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">active_model</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="-broker" class="anchor" href="#-broker"><span class="octicon octicon-link"></span></a><a name="usage-broker"></a> Broker</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/broker">broker</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /broker?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+  <span class="nb">name</span><span class="p">:</span> <span class="s2">"Chefy"</span><span class="p">,</span>
+  <span class="ss">plugin</span><span class="p">:</span> <span class="s2">"chef"</span><span class="p">,</span>
+  <span class="ss">description</span><span class="p">:</span> <span class="s2">"Production Chef Server"</span><span class="p">,</span>
+  <span class="n">req_metadata_hash</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">chef_server_url</span><span class="p">:</span> <span class="s2">"https://chef.example.com"</span><span class="p">,</span>
+    <span class="n">chef_version</span><span class="p">:</span> <span class="s2">"11.4.0"</span><span class="p">,</span>
+    <span class="n">validation_key</span><span class="p">:</span> <span class="s2">"-----BEGIN RSA PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">MIIEogIBAAK..."</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /broker/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /broker</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">all</span>
+
+<span class="c1"># GET /broker/plugins</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">plugins</span>
+
+<span class="c1"># PUT /broker/{UUID}?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+  <span class="ss">uuid</span><span class="p">:</span> <span class="s2">"uuid1-xxxx"</span><span class="p">,</span>
+  <span class="nb">name</span><span class="p">:</span> <span class="s2">"Production Chef Server"</span>
+<span class="p">})</span>
+
+<span class="c1"># DELETE /broker/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="n">broker</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">broker</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="-model" class="anchor" href="#-model"><span class="octicon octicon-link"></span></a><a name="usage-model"></a> Model</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/model">model</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /model?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+  <span class="ss">label</span><span class="p">:</span> <span class="s2">"Test Model"</span><span class="p">,</span>
+  <span class="n">image_uuid</span><span class="p">:</span> <span class="s2">"OTP"</span><span class="p">,</span>
+  <span class="ss">template</span><span class="p">:</span> <span class="s2">"ubuntu_oneirc"</span><span class="p">,</span>
+  <span class="n">req_metadata_hash</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">hostname_prefix</span><span class="p">:</span> <span class="s2">"test"</span><span class="p">,</span>
+    <span class="ss">domainname</span><span class="p">:</span> <span class="s2">"testdomain.com"</span><span class="p">,</span>
+    <span class="n">root_password</span><span class="p">:</span> <span class="s2">"test4321"</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /model/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /model</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">all</span>
+
+<span class="c1"># GET /model/templates</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">templates</span>
+
+<span class="c1"># PUT /model/{UUID}?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+  <span class="ss">uuid</span><span class="p">:</span> <span class="s2">"uuid1-xxxx"</span><span class="p">,</span>
+  <span class="ss">label</span><span class="p">:</span> <span class="s2">"New Test Model Label"</span>
+<span class="p">})</span>
+
+<span class="c1"># DELETE /model/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="-node" class="anchor" href="#-node"><span class="octicon octicon-link"></span></a><a name="usage-node"></a> Node</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/node">node</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /node/register?[registration_param_list]</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">register</span><span class="p">({</span>
+  <span class="n">hw_id</span><span class="p">:</span> <span class="s2">"000C29291C95"</span><span class="p">,</span>
+  <span class="n">last_state</span><span class="p">:</span> <span class="s2">"idle"</span><span class="p">,</span>
+  <span class="n">attributes_hash</span><span class="p">:</span> <span class="p">{</span>
+    <span class="ss">attr1</span><span class="p">:</span> <span class="s2">"val1"</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1"># POST /node/checkin?[checkin_param_list]</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">checkin</span><span class="p">({</span>
+  <span class="n">hw_id</span><span class="p">:</span> <span class="s2">"000C29291C95"</span><span class="p">,</span>
+  <span class="n">last_state</span><span class="p">:</span> <span class="s2">"idle"</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /node/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /node/{UUID}?field=attributes</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /node/{UUID}?field=hardware_ids</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">get_hardware_ids</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /node</span>
+<span class="n">client</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">all</span>
+</pre></div>
+
+<h3>
+<a name="-policy" class="anchor" href="#-policy"><span class="octicon octicon-link"></span></a><a name="usage-policy"></a> Policy</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/policy">policy</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /policy?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+  <span class="ss">label</span><span class="p">:</span> <span class="s2">"Test Policy"</span><span class="p">,</span>
+  <span class="n">model_uuid</span><span class="p">:</span> <span class="s2">"uuid2-yyyy"</span><span class="p">,</span>
+  <span class="ss">template</span><span class="p">:</span> <span class="s2">"linux_deploy"</span><span class="p">,</span>
+  <span class="ss">tags</span><span class="p">:</span> <span class="s2">"two_disks,memsize_1GiB,nics_2"</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /policy/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /policy</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">all</span>
+
+<span class="c1"># GET /policy/templates</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">templates</span>
+
+<span class="c1"># PUT /policy/{UUID}?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+  <span class="ss">uuid</span><span class="p">:</span> <span class="s2">"uuid1-xxxx"</span><span class="p">,</span>
+  <span class="ss">tags</span><span class="p">:</span> <span class="s2">"one,two,three"</span>
+<span class="p">})</span>
+
+<span class="c1"># DELETE /policy/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="n">policy</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="-tag" class="anchor" href="#-tag"><span class="octicon octicon-link"></span></a><a name="usage-tag"></a> Tag</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/tag">tag</a>
+documentation</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /tag?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">create</span><span class="p">({</span>
+  <span class="nb">name</span><span class="p">:</span> <span class="s2">"Test Tag"</span><span class="p">,</span>
+  <span class="ss">tag</span><span class="p">:</span> <span class="s2">"test_tag"</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /tag/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="c1"># GET /tag</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">all</span>
+
+<span class="c1"># PUT /tag/{UUID}?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+  <span class="ss">uuid</span><span class="p">:</span> <span class="s2">"uuid1-xxxx"</span><span class="p">,</span>
+  <span class="ss">tag</span><span class="p">:</span> <span class="s2">"prod_tag"</span>
+<span class="p">})</span>
+
+<span class="c1"># DELETE /tag/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+
+<span class="n">tag</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="-tag-matcher" class="anchor" href="#-tag-matcher"><span class="octicon octicon-link"></span></a><a name="usage-tag-matcher"></a> Tag Matcher</h3>
+
+<ul>
+<li>Razor
+<a href="https://github.com/puppetlabs/Razor/wiki/tag">tag</a>
+documentation (contains tag matcher details)</li>
+</ul><div class="highlight"><pre><span class="nb">require</span> <span class="s1">'safety_razor'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">SafetyRazor</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">uri</span><span class="p">:</span> <span class="s1">'http://10.0.10.1'</span><span class="p">)</span>
+
+<span class="c1"># POST /tag/{T_UUID}/matcher?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag_matcher</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="ss">key</span><span class="p">:</span> <span class="s2">"mk_hw_nic_count"</span><span class="p">,</span>
+  <span class="ss">compare</span><span class="p">:</span> <span class="s2">"equal"</span><span class="p">,</span>
+  <span class="ss">value</span><span class="p">:</span> <span class="s2">"2"</span>
+<span class="p">})</span>
+
+<span class="c1"># GET /tag/{T_UUID}/matcher/{UUID}</span>
+<span class="c1"># get(tag_uuid, tag_matcher_uuid)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag_matcher</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">,</span> <span class="s2">"uuid2-yyyy"</span><span class="p">)</span>
+
+<span class="c1"># PUT /tag/{T_UUID}/matcher/{UUID}?json_hash=(JSON_STR)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag_matcher</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="ss">uuid</span><span class="p">:</span> <span class="s2">"uuid2-yyyy"</span><span class="p">,</span>
+  <span class="ss">key</span><span class="p">:</span> <span class="s2">"mk_special_sauce"</span>
+<span class="p">})</span>
+
+<span class="c1"># DELETE /tag/{T_UUID}/matcher/{UUID}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">tag_matcher</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="s2">"uuid1-xxxx"</span><span class="p">,</span> <span class="s2">"uuid2-yyyy"</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="-testing" class="anchor" href="#-testing"><span class="octicon octicon-link"></span></a><a name="testing"></a> Testing</h2>
+
+<p>To run the unit tests and quality suite:</p>
+
+<pre><code>./script/bootstrap
+rake
+</code></pre>
+
+<p>The acceptance suite requires a Razor service, therefore this projects ships
+with a Vagrant VM providing a Razor instance. To run the acceptance suite:</p>
+
+<pre><code>./script/bootstrap
+vagrant up
+rake acceptance
+vagrant destroy
+</code></pre>
+
+<h2>
+<a name="-development" class="anchor" href="#-development"><span class="octicon octicon-link"></span></a><a name="development"></a> Development</h2>
+
+<ul>
+<li>Source hosted at <a href="https://github.com/blueboxgroup/safety_razor">GitHub</a>
+</li>
+<li>Report issues/questions/feature requests on <a href="https://github.com/blueboxgroup/safety_razor/issues">GitHub Issues</a>
+</li>
+</ul><p>Pull requests are very welcome! Make sure your patches are well tested.
+Ideally create a topic branch for every separate change you make. For
+example:</p>
+
+<ol>
+<li>Fork the repo</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol><h2>
+<a name="-authors" class="anchor" href="#-authors"><span class="octicon octicon-link"></span></a><a name="authors"></a> Authors</h2>
+
+<p>Created by <a href="https://github.com/fnichol">Fletcher Nichol</a> (<a href="mailto:fnichol@nichol.ca">fnichol@nichol.ca</a>), and maintained
+by <a href="http://bluebox.net">Blue Box Group</a>.</p>
+
+<h2>
+<a name="-license" class="anchor" href="#-license"><span class="octicon octicon-link"></span></a><a name="license"></a> License</h2>
+
+<p>MIT (see <a href="https://github.com/blueboxgroup/safety_razor/blob/master/LICENSE">LICENSE</a>)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/blueboxgroup">blueboxgroup</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
