@@ -26,4 +26,8 @@ if ! vagrant plugin list | grep -q '^vagrant-berkshelf ' ; then
   fail "Vagrant plugin vagrant-berkshelf must be installed"
 fi
 
+bundle_cmd="bundle install"
+banner "Running '$bundle_cmd'"
+$bundle_cmd
+
 banner 'All ready!'

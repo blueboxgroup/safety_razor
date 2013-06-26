@@ -2,13 +2,13 @@
 
 require 'faraday'
 
+require 'safety_razor/slice/active_model'
+require 'safety_razor/slice/broker'
 require 'safety_razor/slice/model'
+require 'safety_razor/slice/node'
+require 'safety_razor/slice/policy'
 require 'safety_razor/slice/tag'
 require 'safety_razor/slice/tag_matcher'
-require 'safety_razor/slice/policy'
-require 'safety_razor/slice/broker'
-require 'safety_razor/slice/node'
-require 'safety_razor/slice/active_model'
 
 module SafetyRazor
 
@@ -27,8 +27,24 @@ module SafetyRazor
       end
     end
 
+    def active_model
+      @active_model ||= Slice::ActiveModel.new(self)
+    end
+
+    def broker
+      @broker ||= Slice::Broker.new(self)
+    end
+
     def model
       @model ||= Slice::Model.new(self)
+    end
+
+    def node
+      @node ||= Slice::Node.new(self)
+    end
+
+    def policy
+      @policy ||= Slice::Policy.new(self)
     end
 
     def tag
@@ -37,22 +53,6 @@ module SafetyRazor
 
     def tag_matcher
       @tag_matcher ||= Slice::TagMatcher.new(self)
-    end
-
-    def policy
-      @policy ||= Slice::Policy.new(self)
-    end
-
-    def broker
-      @broker ||= Slice::Broker.new(self)
-    end
-
-    def node
-      @node ||= Slice::Node.new(self)
-    end
-
-    def active_model
-      @active_model ||= Slice::ActiveModel.new(self)
     end
   end
 end
